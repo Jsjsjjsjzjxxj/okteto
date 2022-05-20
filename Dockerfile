@@ -1,20 +1,12 @@
-FROM python:3.9
+FROM jmthonar/userbot:slim-buster
 
-RUN apt update && apt upgrade -y
-RUN apt install python3-pip -y
-RUN apt install ffmpeg -y
-
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install -y nodejs
-RUN npm i -g npm
-
-RUN mkdir /app/
-COPY . /app
-WORKDIR /app
-
+#clonning repo 
 RUN git clone https://github.com/jmthonar/userbot.git /root/userbot
-RUN pip3 install --upgrade pip
-RUN pip3 install -U -r requirements.txt
+#working directory 
+WORKDIR /root/userbot
+
+# Install requirements
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 ENV PATH="/home/userbot/bin:$PATH"
 
